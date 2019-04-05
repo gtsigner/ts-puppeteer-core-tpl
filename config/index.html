@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset=utf-8>
+    <title>登录界面</title>
+    <style>
+        .form-item {
+            padding-bottom: 15px;
+            display: flex;
+            line-height: 40px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .form-item label {
+            width: 100px;
+            flex: none;
+        }
+
+        .form-item input {
+            padding: 0 10px;
+            flex: 1;
+        }
+
+        .btn-form {
+            text-align: center;
+        }
+
+        .btn-login {
+            line-height: 40px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+<form action="">
+    <div class="form-item">
+        <label>网址：</label>
+        <input name="url" value="http://4a.xj.cmcc/platform/login!homeAtion.do" id="url" type="text"
+               placeholder="输入网址"/>
+    </div>
+    <div class="form-item">
+        <label>Host：</label>
+        <input name="host" value="4a.xj.cmcc" id="host" type="text"
+               placeholder="输入host"/>
+    </div>
+    <div class="form-item">
+        <label>Cookie：</label>
+        <input name="cookie" value="" id="cookie" type="text" placeholder="输入Cookie"/>
+    </div>
+    <div class="form-item">
+        <label>Referer：</label>
+        <input name="referer" value="" id="referer" type="text" placeholder="输入Referer"/>
+    </div>
+    <div class="form-item btn-form">
+        <button id="btnLogin" type="button" class="btn-login">验证登录</button>
+    </div>
+</form>
+<script>
+
+    document.getElementById("btnLogin").addEventListener("click", function (e) {
+        console.log(document.getElementById("url"));
+        var url = document.getElementById("url").value;
+        var host = document.getElementById("host").value;
+        var cookie = document.getElementById("cookie").value;
+        var referer = document.getElementById("referer").value;
+        var message = {url: url, host: host, cookie: cookie, referer: referer, action: 'login'};
+        console.debug(JSON.stringify(message));
+    });
+</script>
+</body>
+</html>
