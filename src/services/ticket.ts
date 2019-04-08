@@ -4,6 +4,7 @@ const setCookieParser = require('set-cookie-parser');
 
 export class TicketHelper {
     private _cookies_sets: string[] = [];
+    private static UserAgent: string = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36';
 
     public constructor() {
 
@@ -44,7 +45,7 @@ export class TicketHelper {
                 Referer: 'http://busy.urbtix.hk/redirect.html',
                 Connection: 'keep-alive',
                 "Accept-Encoding": 'gzip, deflate',
-                "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36'
+                "User-Agent": TicketHelper.UserAgent
             },
             maxRedirects: 0,
             timeout: 5000,
@@ -58,12 +59,14 @@ export class TicketHelper {
      */
     public async request(config: any): Promise<HttpReturn> {
         const headers = config.headers || {};
+        const cookie = config.cookieStr || '';
         return await HttpHelper.request({
             ...config,
             withCredentials: true,
             headers: {
+                "User-Agent": TicketHelper.UserAgent,
                 ...headers,
-                Cookie: this.getCookiesStr()
+                Cookie: cookie + this.getCookiesStr()
             }
         });
     }
@@ -111,13 +114,21 @@ export class TicketHelper {
                 Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
                 Cookie: this.getCookiesStr(),
                 'Upgrade-Insecure-Requests': 1,
-                "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36'
+                "User-Agent": TicketHelper.UserAgent
             },
             maxRedirects: 0,
             timeout: 5000,
         });
     }
 
+
+    /**
+     * 设置观看过的
+     * @param ticket
+     */
+    public setViewTicketId(ticket: number) {
+        this._cookies_sets.push(`recentlyViewedEvents=${ticket}:${Date.now()};`)
+    }
 
     /**
      * 是否授权成功了

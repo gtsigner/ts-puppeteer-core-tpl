@@ -16,6 +16,7 @@
   "scripts": {
     "dev": "nodemon --watch src/**/*.* --exec ts-node ./src/index.ts",
     "test": "nodemon --watch **/*.ts --exec ts-node",
+    "debug": "nodemon --watch src/**/*.ts --exec node --inspect -r ts-node/register ./src/index.ts",
     "build": "rm -rf ./build && tsc && node build.js"
   },
   "devDependencies": {

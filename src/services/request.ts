@@ -33,7 +33,7 @@ export class HttpHelper {
 
     public static async request(config): Promise<HttpReturn> {
         return new Promise(resolve => {
-            const ret: HttpReturn = {status: 300, ok: false, headers: {}, data: '', message: '成功', success: false};
+            const ret: HttpReturn = {status: 540, ok: false, headers: {}, data: '', message: '成功', success: false};
             axios.request(config).then((res: any) => {
                 ret.headers = res.headers;
                 ret.status = res.status;
@@ -48,6 +48,9 @@ export class HttpHelper {
                     ret.headers = response.headers;
                     ret.data = response.data;
                     ret.message = response.statusText;
+                }
+                if (err.code === 'ECONNABORTED') {
+                    ret.message = '服务器访问超时:' + err.message || '';
                 }
                 ret.config = err.config;
                 ret.ok = false;
