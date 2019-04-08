@@ -20,6 +20,9 @@ export interface TaskConfig {
     url: string,
     ticket: {
         url: string
+    },
+    cookie: {
+        maxCount: number,
     }
 }
 
@@ -155,21 +158,26 @@ export class Creator {
             url: 'https://ticket.urbtix.hk/internet/login/transaction?saveRequestUrl=/secure/event/38096/performanceDetail/369840',
             ticket: {
                 url: "https://ticket.urbtix.hk/internet/login/transaction?saveRequestUrl=/secure/event/38096/performanceDetail/369840"
+            },
+            cookie: {
+                maxCount: 10,
             }
-        }
+        },
     ];
 
 
     tasks.forEach(async (task) => {
         const ticket = TicketHelper.createInstance();
         let err = 0;
-        while ((await ticket.getAuthToken()).success === false) {
+        while ((await ticket.getAuthToken()).success === false && err <= task.cookie.maxCount) {
             err++;
         }
-        while ((await ticket.getInternet()).success === false) {
+        err = 0;
+        while ((await ticket.getInternet()).success === false && err <= task.cookie.maxCount) {
             err++;
         }
 
+        return;
         //这里面携带了Cookie
         const browser = await Creator.createBrowser();
         const options = {

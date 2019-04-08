@@ -79,6 +79,13 @@ export class TicketHelper {
     }
 
 
+    /**
+     * 是否授权成功了
+     */
+    public async isAuthSuccess() {
+
+    }
+
     public async buyTicket(): Promise<HttpReturn> {
         return null;
     }
