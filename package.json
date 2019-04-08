@@ -2,6 +2,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "axios-cookiejar-support": "^0.4.2",
+    "cheerio": "^1.0.0-rc.3",
+    "consola": "^2.5.8",
     "cookie": "^0.3.1",
     "nexe": "^3.0.1",
     "puppeteer-core": "^1.14.0",
@@ -13,6 +15,7 @@
   },
   "scripts": {
     "dev": "nodemon --watch src/**/*.* --exec ts-node ./src/index.ts",
+    "test": "nodemon --watch **/*.ts --exec ts-node",
     "build": "rm -rf ./build && tsc && node build.js"
   },
   "devDependencies": {

@@ -1,13 +1,12 @@
+import {ConfigInfo, ConfigService} from "./services/config";
+
 const puppeteer = require('puppeteer-core');
 const fs = require('fs');
 const path = require('path');
+const cheerio = require('cheerio');
 import {TicketHelper} from "./services/ticket";
 
-const ROOT_PATH = path.join(process.cwd());
-const config = {
-    temp_path: path.join(ROOT_PATH, "temp/")
-};
-const html = fs.readFileSync(path.join(__dirname, "../config", "index.html")).toString();
+const consola = require('consola');
 
 export interface LoginParams {
     host: string,
@@ -18,9 +17,10 @@ export interface LoginParams {
 
 export interface TaskConfig {
     url: string,
-    ticket: {
+    ticket?: {
         url: string
     },
+    config: ConfigInfo,
     cookie: {
         maxCount: number,
     }
@@ -48,8 +48,8 @@ export class PageTask {
 
         await page.setUserAgent(options.browser.userAgent);
         await page.setViewport({
-            height: 1200,
-            width: 1200
+            height: 800,
+            width: 900
         });
         //cookies
         const cookies = this.ticket.getCookieEntry('', 'ticket.urbtix.hk');
@@ -67,11 +67,25 @@ export class PageTask {
             //登录页面
             //https://ticket.urbtix.hk/internet/login/transaction?saveRequestUrl=/secure/event/38096/performanceDetail/369840
             if (/internet\/login\/transaction/.test(url)) {
+                consola.info('等待登录');
                 const type = await page.$("input[name=memberType][value=non_member]");
                 if (type) {
                     await type.click();
                 }
                 return false;
+            }
+            //购票页面
+            if (/internet\/secure\/event/.test(url)) {
+                consola.info('开始选择票');
+                const res = await this.ticket.request({
+                    method: 'GET',
+                    url: 'https://ticket.urbtix.hk/internet/secure/event/38096/performanceDetail/369840'
+                });
+                if (res.ok) {
+                    const $ = cheerio.load(res.data);
+                }
+                console.log(res);
+                return;
             }
 
 
@@ -96,7 +110,7 @@ export class PageTask {
             }
         });
         //1.买票的页面
-        await page.goto(this.task.ticket.url);
+        await page.goto(this.task.url);
         //5.需要等待图片加载完整后
         // await sleep(1000);
         // await page.screenshot({
@@ -136,7 +150,8 @@ export class Creator {
             headless: false,
             defaultViewport: {
                 height: 600,
-                width: 800
+                width: 800,
+                deviceScaleFactor: 1
             }
         });
     }
@@ -152,32 +167,34 @@ export class Creator {
     //Host
     //Cookie
 
-    const tasks: TaskConfig[] = [
-        {
-            //url: "http://busy.urbtix.hk/redirect.html",
-            url: 'https://ticket.urbtix.hk/internet/login/transaction?saveRequestUrl=/secure/event/38096/performanceDetail/369840',
-            ticket: {
-                url: "https://ticket.urbtix.hk/internet/login/transaction?saveRequestUrl=/secure/event/38096/performanceDetail/369840"
-            },
+    const tasks: TaskConfig[] = [];
+    const content: string = await ConfigService.getFileContent(ConfigService.filename);
+    const config = ConfigService.parseTaskConfig(content);
+    config.forEach((cf) => {
+        const task: TaskConfig = {
+            url: `https://ticket.urbtix.hk/internet/login/transaction?saveRequestUrl=/secure/event/${cf.ticketId}/performanceDetail/${cf.dateId}`,
+            config: cf,
             cookie: {
-                maxCount: 10,
+                maxCount: 10
             }
-        },
-    ];
-
+        };
+        tasks.push(task);
+    });
 
     tasks.forEach(async (task) => {
+        consola.info(`开始买票任务:${task.config.ticketId},最高执行:${task.cookie.maxCount}次`);
         const ticket = TicketHelper.createInstance();
-        let err = 0;
-        while ((await ticket.getAuthToken()).success === false && err <= task.cookie.maxCount) {
-            err++;
+        const token = await ticket.getAuthToken(task.cookie.maxCount);
+        if (token.success === false) {
+            consola.info(`买票任务:${task.config.ticketId}执行失败,原因:获取auth cookie失败`);
+            return false;
         }
-        err = 0;
-        while ((await ticket.getInternet()).success === false && err <= task.cookie.maxCount) {
-            err++;
+        const cks = await ticket.getInternet(task.cookie.maxCount);
+        if (cks.success === false) {
+            consola.info(`买票任务:${task.config.ticketId}执行失败,原因:获取cookie失败`);
+            return false;
         }
 
-        return;
         //这里面携带了Cookie
         const browser = await Creator.createBrowser();
         const options = {
