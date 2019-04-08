@@ -1,9 +1,7 @@
-import {sleep} from "./utils/system";
-import {bound} from "nexe/lib/util";
-
 const puppeteer = require('puppeteer-core');
 const fs = require('fs');
 const path = require('path');
+import {TicketHelper} from "./services/ticket";
 
 const ROOT_PATH = path.join(process.cwd());
 const config = {
@@ -30,35 +28,63 @@ export class PageTask {
     private readonly options: any = null;
     private readonly task: TaskConfig = null;
     private readonly browser: any = null;
+    private readonly ticket: TicketHelper = null;
 
-    constructor(browser, options: any, task: TaskConfig) {
+    constructor(browser, options: any, task: TaskConfig, ticket: TicketHelper) {
         this.options = options;
         this.browser = browser;
         this.task = task;
+        this.ticket = ticket;
     }
 
     async startLogin() {
         const browser = this.browser;
         const options = this.options;
         const page = await browser.newPage();
+
+
         await page.setUserAgent(options.browser.userAgent);
         await page.setViewport({
             height: 1200,
             width: 1200
         });
-
+        //cookies
+        const cookies = this.ticket.getCookieEntry('', 'ticket.urbtix.hk');
+        const res = await Promise.all(cookies.map((ck) => {
+            return page.setCookie({name: ck.name, value: ck.value, domain: ck.domain});
+        }));
         //绑定事件
         page.on('load', async () => {
+
         });
         //页面
         page.on('domcontentloaded', async () => {
-            console.log("domcontentloaded");
-            const type = page.$("input[name=memberType]");
             const url = page.url();
-            console.log(url)
-            //内部的选票页面，https://ticket.urbtix.hk/internet/secure/event/38096/performanceDetail/369840
-            //type.click();
+            console.log('document is  loaded url:' + url);
+            //登录页面
+            //https://ticket.urbtix.hk/internet/login/transaction?saveRequestUrl=/secure/event/38096/performanceDetail/369840
+            if (/internet\/login\/transaction/.test(url)) {
+                const type = await page.$("input[name=memberType][value=non_member]");
+                if (type) {
+                    await type.click();
+                }
+                return false;
+            }
+
+
+            // //内部的选票页面，https://ticket.urbtix.hk/internet/secure/event/38096/performanceDetail/369840
+            // //type.click();
+            //
+            // switch (url) {
+            //     case 'https://ticket.urbtix.hk/internet/secure/event/38096/performanceDetail/369840':
+            //         break;
+            // }
         });
+
+        //内页1
+        //https://ticket.urbtix.hk/internet/secure/event/38096/performanceDetail/369840
+
+
         //console
         page.on('console', async (msg) => {
             if (msg._type === 'debug') {
@@ -66,11 +92,7 @@ export class PageTask {
 
             }
         });
-        //1.进入首页
-        await page.goto(options.url);
-        //2.进入售票页面,这个页面会生成Cookie
-        await page.goto("http://www.urbtix.hk");
-        //3.买票的页面
+        //1.买票的页面
         await page.goto(this.task.ticket.url);
         //5.需要等待图片加载完整后
         // await sleep(1000);
@@ -85,12 +107,6 @@ export class PageTask {
         //     }
         // });
         //6.进入页面注入抢票JS
-        //@ts-ignore
-        await page.evaluate(() => {
-            const type = document.querySelector("input[name=memberType]");
-            // @ts-ignore
-            type.click();
-        });
         return page;
     }
 
@@ -135,22 +151,37 @@ export class Creator {
 
     const tasks: TaskConfig[] = [
         {
-            url: "http://busy.urbtix.hk/redirect.html",
+            //url: "http://busy.urbtix.hk/redirect.html",
+            url: 'https://ticket.urbtix.hk/internet/login/transaction?saveRequestUrl=/secure/event/38096/performanceDetail/369840',
             ticket: {
                 url: "https://ticket.urbtix.hk/internet/login/transaction?saveRequestUrl=/secure/event/38096/performanceDetail/369840"
             }
         }
     ];
+
+
     tasks.forEach(async (task) => {
+        const ticket = TicketHelper.createInstance();
+        let err = 0;
+        while ((await ticket.getAuthToken()).success === false) {
+            err++;
+        }
+        while ((await ticket.getInternet()).success === false) {
+            err++;
+        }
+
+        //这里面携带了Cookie
         const browser = await Creator.createBrowser();
         const options = {
             browser: {
-                userAgent: 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.9) Goanna/4.1 (Pale Moon)'
+                cookie: ticket.getCookiesStr(),
+                userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36'
             },
             url: "http://busy.urbtix.hk/redirect.html"
         };
-        const tasker = new PageTask(browser, options, task);
+        const tasker = new PageTask(browser, options, task, ticket);
         await tasker.startLogin();
     })
+
 
 })();

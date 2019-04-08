@@ -1,0 +1,22 @@
+[
+  {
+    "ticket": {
+      "url": "https://ticket.urbtix.hk/internet/login/transaction?saveRequestUrl=/secure/event/38096/performanceDetail/369840",
+      "type": 1,
+      "buy": {
+        "0": 1,
+        "1": 2
+      },
+      "site": true,
+      "card": {
+        "x": "123",
+        "m": "!23",
+        "mail": "123",
+        "method": "1",
+        "number": "!23",
+        "safe": "123",
+        "date": ""
+      }
+    }
+  }
+]

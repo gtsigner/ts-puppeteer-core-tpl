@@ -38,3 +38,51 @@ http://busy.urbtix.hk/redirect.html
 如此類推
 
 可以做的到嗎？
+
+## 配置
+
+```
+
+{
+    "ticket": {
+       //买票地址
+      "url": "https://ticket.urbtix.hk/internet/login/transaction?saveRequestUrl=/secure/event/38096/performanceDetail/369840",
+      "type": 1,//买票的A B C
+      "buy": {
+        "0": 1, //第一种票买多少张
+        "1": 4, //第2种票买多少张
+        "2": 3 //第3种票买多少张
+      },
+      "site": true, //自动座位
+      "card": {
+        "x": "123",//姓
+        "m": "!23",//名字
+        "mail": "123",//邮箱
+        "method": "1",//支付方法
+        "number": "!23",//卡号
+        "safe": "123", //信用卡安全码
+        "date": ""  信用卡日期
+      }
+    }
+```
+
+```text
+1.售票ID：38185 URL中的eventDetail参数
+2.场次：performanceDetail 参数
+3.門票之區段及票價序列号，1代表第一个，2代表第二个
+4.門票類別及購買數量 格式[序号=数量,序号=数量]
+5.是否勾选相邻作为 1勾选，0不勾选
+6.姓
+7.名
+8.電郵地址
+9.請選擇領取門票方法 序号1，2，3，4
+10.付款方法序号,1.2.3
+11.卡号
+12.安全码
+13.有效期 2019-10
+```
+```text
+售票ID,场次ID,1,[1=2,2=3],1,赵,俊,1716771371@qq.com,1,1,123,123,2018-29
+```
+1. CHAN, TAI MAN, dasjkdj@gmail.com, 1, 432332321312521, 402, 02/23
+2. LI, BI BI, dajsd@yahoo.com, 1, 421421321321321, 821, 12/22
