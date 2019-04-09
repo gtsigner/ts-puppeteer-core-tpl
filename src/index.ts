@@ -58,8 +58,7 @@ export class PageTask {
         const options = this.options;
         const page = await browser.newPage();
 
-
-        await page.setUserAgent(options.browser.userAgent);
+        await page.setUserAgent(TicketHelper.UserAgent);
         await page.setViewport({
             height: 800,
             width: 900
@@ -69,6 +68,7 @@ export class PageTask {
         const res = await Promise.all(cookies.map((ck) => {
             return page.setCookie({name: ck.name, value: ck.value, domain: ck.domain});
         }));
+
         //绑定事件
         page.on('load', async () => {
 
@@ -102,6 +102,17 @@ export class PageTask {
                     method: 'GET',
                     url: `http://ticket.urbtix.hk/internet/secure/event/${this.task.config.ticketId}/performanceDetail/${this.task.config.dateId}`
                 });
+
+                //@ts-ignore
+                await page.evaluate(() => {
+                    document.querySelectorAll('.ticket-quota-select').forEach((item) => {
+                        //@ts-ignore
+                        item.value = 1
+                    });
+                });
+                const btn = await page.$('#express-purchase-btn');
+                await btn.click();
+                return false;
                 if (res.ok) {
                     const $ = cheerio.load(res.data);
                     $('#performanceSelectForm input').each((ix, elem) => {
@@ -201,8 +212,6 @@ export class PageTask {
         //内页1
         //https://ticket.urbtix.hk/internet/secure/event/38096/performanceDetail/369840
 
-
-        //console
         page.on('console', async (msg) => {
             if (msg._type === 'debug') {
                 const data = JSON.parse(msg._text);
@@ -360,11 +369,12 @@ export class Creator {
         const options = {
             browser: {
                 cookie: ticket.getCookiesStr(),
-                userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36'
+                userAgent: TicketHelper.UserAgent
             },
             url: "http://busy.urbtix.hk/redirect.html"
         };
         const tasker = new PageTask(browser, options, task, ticket);
         await tasker.startLogin();
+
     });
 })();

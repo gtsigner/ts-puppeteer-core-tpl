@@ -4,7 +4,7 @@ const setCookieParser = require('set-cookie-parser');
 
 export class TicketHelper {
     private _cookies_sets: string[] = [];
-    private static UserAgent: string = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36';
+    public static UserAgent: string = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36';
 
     public constructor() {
 
@@ -29,6 +29,7 @@ export class TicketHelper {
                 res.success = true;
                 return res;
             }
+            console.log(`获取失败AuthToken:${res.status}`, res.headers);
             counter++;
         } while (res.success === false && counter < retry);
         return res;
@@ -99,6 +100,7 @@ export class TicketHelper {
                 res.success = true;
                 return res;
             }
+            console.log(`获取失败AuthToken:` + res.status);
             counter++;
         } while (res.success === false && counter < retry);
         return res;
