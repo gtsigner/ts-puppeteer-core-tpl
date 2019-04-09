@@ -5,7 +5,7 @@ compile({
     // build: true, //required to use patches
     output: './release/server.exe',
     make: ['release'],
-    resources: ['./config/**/*'],
+    // resources: ['./config/**/*'],
     ico: './config/logo.ico',
     // build: true
 }).then(() => {

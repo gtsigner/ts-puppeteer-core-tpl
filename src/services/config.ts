@@ -1,12 +1,9 @@
-import {TaskConfig} from "../index";
-
 const fs = require('fs');
 const path = require('path');
 const ROOT_PATH = process.cwd();
 const CONFIG_PATH = path.join(ROOT_PATH, 'config/');
 const filename = path.join(CONFIG_PATH, 'config.txt');
 const consola = require('consola');
-
 
 export interface ConfigInfo {
     ticketId: number,
@@ -33,6 +30,7 @@ export class ConfigService {
     public static filename: string = filename;
 
     public static async getFileContent(filename: string): Promise<string> {
+        console.log(`读取配置文件:${filename}`);
         if (fs.existsSync(filename)) {
             return fs.readFileSync(filename).toString();
         } else {

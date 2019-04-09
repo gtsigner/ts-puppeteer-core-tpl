@@ -1,4 +1,6 @@
 import {HttpHelper, HttpReturn} from "./request";
+import {ConfigInfo} from "./config";
+import {TICKET_URLS, UrlHelper} from "./url";
 
 const setCookieParser = require('set-cookie-parser');
 
@@ -49,7 +51,7 @@ export class TicketHelper {
                 "User-Agent": TicketHelper.UserAgent
             },
             maxRedirects: 0,
-            timeout: 5000,
+            timeout: 5000
         });
     }
 
@@ -63,7 +65,7 @@ export class TicketHelper {
         const cookie = config.cookieStr || '';
         return await HttpHelper.request({
             ...config,
-            withCredentials: true,
+            withCredentials: false,
             headers: {
                 "User-Agent": TicketHelper.UserAgent,
                 ...headers,
@@ -104,6 +106,51 @@ export class TicketHelper {
             counter++;
         } while (res.success === false && counter < retry);
         return res;
+    }
+
+    /**
+     * 获取票详情
+     * @param ticket
+     * @param retry
+     */
+    public async getTicketDetail(ticket: ConfigInfo, retry: number = 10): Promise<HttpReturn> {
+        let counter = 0;
+        let res: HttpReturn;
+        do {
+            res = await this._requestTicket(ticket);
+            if (res.status === 200 && res.headers['set-cookie']) {
+                this._cookies_sets = this._cookies_sets.concat(res.headers['set-cookie']);
+            }
+            if (res.status === 200) {
+                res.success = true;
+                return res;
+            }
+            console.log(`获取Ticket失败:` + res.status);
+            counter++;
+        } while (res.success === false && counter < retry);
+        return res;
+    }
+
+    /**
+     * 请求票
+     * @param ticket
+     * @private
+     */
+    private async _requestTicket(ticket: ConfigInfo): Promise<HttpReturn> {
+        return await HttpHelper.request({
+            url: UrlHelper.parse(TICKET_URLS.ticket_detail, ticket.ticketId),
+            withCredentials: true,
+            headers: {
+                Host: 'ticket.urbtix.hk',
+                Referer: 'https://ticket.urbtix.hk/internet/',
+                Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+                Cookie: this.getCookiesStr(),
+                'Upgrade-Insecure-Requests': 1,
+                "User-Agent": TicketHelper.UserAgent
+            },
+            maxRedirects: 0,
+            timeout: 5000,
+        });
     }
 
     private async _requestInternet(): Promise<HttpReturn> {
