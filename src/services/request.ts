@@ -36,7 +36,7 @@ export class HttpHelper {
             const ret: HttpReturn = {status: 540, ok: false, headers: {}, data: '', message: '成功', success: false};
             axios.request(config).then((res: any) => {
                 ret.headers = res.headers;
-                ret.status = res.status;
+                ret.status = parseInt(res.status);
                 ret.data = res.data;
                 ret.message = "成功";
                 ret.config = res.config;
@@ -44,7 +44,7 @@ export class HttpHelper {
             }).catch(err => {
                 if (err.response) {
                     const response = err.response;
-                    ret.status = response.status;
+                    ret.status = parseInt(response.status);
                     ret.headers = response.headers;
                     ret.data = response.data;
                     ret.message = response.statusText;

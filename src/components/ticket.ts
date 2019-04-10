@@ -1,6 +1,6 @@
-import {HttpHelper, HttpReturn} from "./request";
-import {ConfigInfo} from "./config";
-import {TICKET_URLS, UrlHelper} from "./url";
+import {HttpHelper, HttpReturn} from "../services/request";
+import {ConfigInfo} from "../services/config";
+import {TICKET_URLS, UrlHelper} from "../services/url";
 
 const setCookieParser = require('set-cookie-parser');
 
@@ -65,7 +65,6 @@ export class TicketHelper {
         const cookie = config.cookieStr || '';
         return await HttpHelper.request({
             ...config,
-            withCredentials: false,
             headers: {
                 "User-Agent": TicketHelper.UserAgent,
                 ...headers,
@@ -152,6 +151,7 @@ export class TicketHelper {
             timeout: 5000,
         });
     }
+
 
     private async _requestInternet(): Promise<HttpReturn> {
         return await HttpHelper.request({

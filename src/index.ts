@@ -1,10 +1,12 @@
 import {ConfigInfo, ConfigService} from "./services/config";
 
-const puppeteer = require('puppeteer-core');
-const path = require('path');
-import {TicketHelper} from "./services/ticket";
+
+import {TicketHelper} from "./components/ticket";
 import {PageTask} from "./PageTask";
 import {TICKET_URLS, UrlHelper} from "./services/url";
+import {Creator} from "./components/creator";
+import {TicketEmitter} from "./components/events";
+
 
 const consola = require('consola');
 
@@ -21,29 +23,9 @@ export interface TaskConfig {
     cookie: {
         maxCount: number,
     },
+    emitter: TicketEmitter
 }
 
-
-export class Creator {
-
-    constructor() {
-
-    }
-
-    static async createBrowser(): Promise<any> {
-        return await puppeteer.launch({
-            executablePath: path.resolve('C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'),
-            headless: false,
-            defaultViewport: {
-                height: 1080,
-                width: 1920,
-                deviceScaleFactor: 2
-            },
-            args: ['--window-size=1920,1080']
-        });
-    }
-
-}
 
 (async () => {
 
@@ -59,12 +41,15 @@ export class Creator {
     const config = ConfigService.parseTaskConfig(content);
     config.forEach((cf) => {
         const task: TaskConfig = {
-            url: UrlHelper.parse(TICKET_URLS.login_redirect, cf.ticketId, cf.dateId).toString(),
+//            url: UrlHelper.parse(TICKET_URLS.login_redirect, cf.ticketId, cf.dateId).toString(),
+            url: UrlHelper.parse(TICKET_URLS.login_detail, cf.ticketId).toString(),
             config: cf,
             cookie: {
-                maxCount: 10
-            }
+                maxCount: 100
+            },
+            emitter: null
         };
+        task.emitter = new TicketEmitter(task);
         tasks.push(task);
     });
 
@@ -102,6 +87,7 @@ export class Creator {
             url: "http://busy.urbtix.hk/redirect.html"
         };
         const tasker = new PageTask(browser, options, task, ticket);
+        //对cookie进行验证码识别，识别成功后推送一个事件，然后再进行购票
         await tasker.startLogin();
 
     });

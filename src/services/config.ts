@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const ROOT_PATH = process.cwd();
 const CONFIG_PATH = path.join(ROOT_PATH, 'config/');
+const TEMP_PATH = path.join(ROOT_PATH, 'temp/');
 const filename = path.join(CONFIG_PATH, 'config.txt');
 const consola = require('consola');
 
@@ -27,6 +28,8 @@ export interface ConfigInfo {
 }
 
 export class ConfigService {
+    //临时文件夹
+    public static temp: string = TEMP_PATH;
     public static filename: string = filename;
 
     public static async getFileContent(filename: string): Promise<string> {
