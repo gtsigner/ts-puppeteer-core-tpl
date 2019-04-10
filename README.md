@@ -86,3 +86,24 @@ http://busy.urbtix.hk/redirect.html
 ```
 1. CHAN, TAI MAN, dasjkdj@gmail.com, 1, 432332321312521, 402, 02/23
 2. LI, BI BI, dajsd@yahoo.com, 1, 421421321321321, 821, 12/22
+
+
+##
+```text
+     //解析信息加入购物车
+            // reviewType: reviewing
+            // seatTicketTypeList[0].newTicketTypeId: 223
+            // seatTicketTypeList[0].useRealNameTicket: false
+            // performanceIds: 125848
+            // hosueId: 12952
+            // seatTicketTypeList[0].orderItemId: 1
+            // seatTicketTypeList[0].priceZoneId: 368
+            // seatTicketTypeList[0].currentTicketTypeId: 223
+
+            // seatTicketTypeList[1].newTicketTypeId: 223
+            // seatTicketTypeList[1].useRealNameTicket: false
+            // seatTicketTypeList[1].orderItemId: 2
+            // seatTicketTypeList[1].priceZoneId: 368
+            // seatTicketTypeList[1].currentTicketTypeId: 223
+            //https://ticket.urbtix.hk/internet/secure/form/reviewTicket/event/38138/performance/126083
+```

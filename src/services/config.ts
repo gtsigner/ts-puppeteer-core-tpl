@@ -31,6 +31,7 @@ export class ConfigService {
     //临时文件夹
     public static temp: string = TEMP_PATH;
     public static filename: string = filename;
+    public static debug = false;
 
     public static async getFileContent(filename: string): Promise<string> {
         console.log(`读取配置文件:${filename}`);
@@ -44,8 +45,8 @@ export class ConfigService {
     public static parseTaskConfig(content: string): ConfigInfo[] {
         let cfgs: ConfigInfo[] = [];
         content.split(/\n/).forEach((line, row) => {
-            if (line === '') return false;
-            const arr = line.split(',');
+            if (line === '' || /^\#/.test(line)) return false;
+            const arr = line.replace(/\r|\t|\n/g, '').split(',');
             if (arr.length !== 13) {
                 consola.info(`${row + 1}行配置信息错误`);
                 return false;
@@ -53,7 +54,15 @@ export class ConfigService {
             let ticketId = parseInt(arr[0]);
             let dateId = parseInt(arr[1]);
             let type = parseInt(arr[2]);
-            let tickets = arr[3].replace(/\[|\]/g, '').split(/\|/);
+            let tickets = [];
+            arr[3].replace(/\[|\]/g, '').split(/\|/).forEach((str) => {
+                const arr = str.toString().split(/\=/);
+                if (arr.length !== 2) {
+                    consola.error(`解析票项配置失败:Line=${row}`)
+                    return false;
+                }
+                tickets.push({key: parseInt(arr[0]), count: arr[1]});
+            });
             let site = parseInt(arr[4]) === 1;
             let xing = (arr[5]);
             let ming = (arr[6]);

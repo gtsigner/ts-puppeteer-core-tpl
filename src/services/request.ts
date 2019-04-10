@@ -12,12 +12,15 @@ export interface HttpReturn {
     success: boolean,
     ok: boolean,
     message: string,
+    err_status?: boolean,
     request?: any,
     config?: any
 }
 
 
 export class HttpHelper {
+    public static axios = axios;
+
     public static createInstance(config) {
         return axios.create({
             headers: {
@@ -33,7 +36,7 @@ export class HttpHelper {
 
     public static async request(config): Promise<HttpReturn> {
         return new Promise(resolve => {
-            const ret: HttpReturn = {status: 540, ok: false, headers: {}, data: '', message: '成功', success: false};
+            const ret: HttpReturn = {status: 540, ok: false, headers: {}, data: null, message: '成功', success: false};
             axios.request(config).then((res: any) => {
                 ret.headers = res.headers;
                 ret.status = parseInt(res.status);

@@ -3,3 +3,12 @@ export async function sleep(time: number) {
         setTimeout(resolve, time);
     }))
 }
+
+import * as crypto from 'crypto'
+
+
+export function md5_encode(str: string): string {
+    const obj = crypto.createHash('md5');
+    obj.update(str);
+    return obj.digest('hex');
+}

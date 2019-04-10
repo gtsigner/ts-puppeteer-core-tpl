@@ -1,0 +1,1194 @@
+\t<!DOCTYPE html>\r\n\t
+<html lang="zh">\r\n\t\t
+<head>\r\n\t\t\t
+    <link href="/internet/images/favicon.ico" rel="icon" type="image/x-icon">
+    \r\n\t\t\t
+    <link href="/internet/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    \r\n\t\t\t<title>城市售票網 - 門票查閱</title>\r
+    \n\t\t\t
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    \r\n\t\t\t
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    \r\n\t\t\t
+    <meta content="NO-CACHE" http-equiv="PRAGMA">
+    \r\n\t\t\t
+    <meta content="NO-STORE" http-equiv="CACHE-CONTROL">
+    \r\n\t\t\t
+    <meta content=
+                  "NO-CACHE" http-equiv="CACHE-CONTROL">
+    \r\n\t\t\t
+    <meta content="-1" http-equiv="Expires">
+    \r\n\t\t\t
+    <meta name="description" content="城市售票網票務系統是購票通 (香港) 有限公司為康文署發展的專業票務系統">
+    \r\n\t\t\t
+    <meta name="keywords" content="票務,網上購票,城市售票網,購票通">
+    \r\n
+    \t
+    <script src="/internet/js/plugin/jquery-1.9.1.min.js?version=1552060969627"></script>
+    \r\n\t
+    <script src="/internet/js/plugin/jquery-ui-1.10.3.custom.min.js?version=1552060969627"></script>
+    \r\n\t
+    <script src="/internet/js/plugin/datajs-1.1.1.min.js?version=1552060969627"></script>
+    \r\n\t
+    <script src="/internet/js/webStore.js?version=1552060969627"></script>
+    \r\n\t
+    <script src="/internet/js/bookmark/bookmarkStore.module.js?version=1552060969627"></script>
+    \r\n\t
+    <script src="/internet/js/cookie.js?version=1552060969627"></script>
+    \r\n\t
+    <script src="/internet/js/c
+ommon.js?version=1552060969627"></script>
+    \r\n\t
+    <script>\r\n\t\tvar
+    maxSessionDurationInMin = 30;\r\n\t\tvar
+    currentSystemTime = 1554870602663;\r\n\t\tvar
+    urbtixUrl = \'http://www.urbtix.hk\';\r\n\t\tvar urbtixHostname = \'www.urbtix.hk\';\r\n\t\tvar webRoot = \'/internet\';\r\n\t
+\tvar
+    webLocale = \'zh_TW\';\r\n\t\tvar storeTimeout = 2700000;\r\n\t\tvar cartItemCount = 0;\r\n\t\tvar jsonSuffix = \'?locale=\'+webLocale+\'&\'+(new Date).getTime();\r\n\t\tvar isLogin = true;\r\n\t\tvar hasLoginAndPurchaseService = \'true\';\r\n\t\tvar salesBreak = {\r\n\t\t\
+tstartTime: function(){\r\n\t\t\t\treturn \'9:40\';\r\n\t\t\t},\r\n\t\t\t\r\n\t\t\tendTime: function(){\r\n\t\t\t\treturn \'10:0\';\r\n\t\t\t}\r\n\t\t};\r\n\t\tWEB_STORE.init();\r\n\t</script>
+    \r\n\t\t
+    <script>\r\n\t\t\t\tstoreTimeout = 900000;\r\n\t\t\t\tsessionExpiryDateTime = 15
+    54871492071;\r\n\t\t\t\tsessionCountDownAlertTime = 3;\r\n\t\t\t\t$(function () {\r\n\t\t\t\t\tWEB_STORE.checkSessionBlock();\r\n\t\t\t\t\tstopNoLoginSessionTimer();\r\n\t\t\t\t\tstartSessionTimer();\r\n\t\t\t\t
+    });\r\n\t\t</script>
+    \r\n\t\t\t\t
+    <script>\r\n\t\tvar
+    eventId = 38052;\r\
+n\t\tvar
+    performanceId = 125848;\r\n\t\tvar
+    reviewTicketFailure = false;\r\n\t\tvar
+    reviewTicketFailureList = \r\n\t\t\t\t\'\'\r\n\t\t\t;\r\n\t\tvar isAllAdjacent = true;\r\n\t\tvar notEnoughTicketCount = false;\r\n\t\tvar isShoppingCartOrderReview = false;\r\n\t</script>
+    \r\n\t<s
+            cript src="/internet/js/performanceTicketReview.js?version=1552060969627"></script>\r\n\t < script
+    src = "/internet/js/plugin/hashMap.min.js?version=1552060969627" ></script>\r\n\t
+        <script src="/internet/js/plugin/graphics-3.0.5.min.js?version=1552060969627"></script>
+        \r\n\t
+        <script src=
+                        "/internet/js/plugin/jquery-tipsy.min.js?version=1552060969627"></script>
+        \r\n\t
+        <script src="/internet/js/plugin/jquery-kinetic.min.js?version=1552060969627"></script>
+        \r\n\t
+        <script src="/internet/js/plugin/jquery-mousewheel.min.js?version=1552060969627"></script>
+        \r\n\t
+        <script src=
+                        "/internet/js/seatplan/seatStatus.module.js?version=1552060969627"></script>
+        \r\n\t
+        <script src="/internet/js/seatplan/seatPlan.module.js?version=1552060969627"></script>
+        \r\n\t
+        <script src="/internet/js/seatplan/seatPlanStore.module.js?version=1552060969627"></script>
+        \r\n\t
+        <script s
+                rc="/internet/js/seatplan/seat.module.js?version=1552060969627"></script>
+        \r\n\t
+        <script src="/internet/js/seatplan/seatTemplate.module.js?version=1552060969627"></script>
+        \r\n\t
+        <script src="/internet/js/seatplan/seatSupportInfo.module.js?version=1552060969627"></script>
+        \r\n\t
+        <scrip
+                t src="/internet/js/seatPreviewForReview.js?version=1552060969627"></script>\r\n\r\n\t < style >\r\n\t\t
+        #captcha - image - input - key - container
+        table
+        tr
+        td.loading
+        {\r\n\t\t\tbackground:white
+            url("/internet/images/ajax-loader.gif")
+            no - repeat
+            center
+            !important; \r\n\t\t
+        }\r\n\t < /style>\r\n\
+t < link
+        rel = "stylesheet"
+        type = "text/css"
+        href = "/internet/css/normalize.min.css?version=1552060969627" / >\r\n\t < link
+        rel = "stylesheet"
+        type = "text/css"
+        href = "/internet/css/jquery/jquery-ui-1.10.3.custom.min.css?version=1552060969627" / >\r\n\t < link
+        rel = "stylesheet"
+        type = "text/css"
+        href =
+            "/internet/css/base.css?version=1552060969627" / >\r\n\t\t\t\t < link
+        rel = "stylesheet"
+        type = "text/css"
+        href = "/internet/css/performanceTicketReview.css?version=1552060969627" / >\r\n\t < link
+        rel = "stylesheet"
+        type = "text/css"
+        href = "/internet/css/performanceReview.css?version=1552060969627"
+            / >\r\n\t < link
+        rel = "stylesheet"
+        type = "text/css"
+        href = "/internet/css/seatPreview.css?version=1552060969627" / >\r\n\r\n\t\t\t < script >\r\n\t\t\t\tvar
+        is_ie_8 = false;\r\n\t\t\t</script>\r\n\t\t\t<!--[if lte IE 8]>\r\n\t
+        <script src="/internet/js/scriptForIE.js?version=1552060969627"></
+        script>\r\n\t
+        <script src="/internet/js/plugin/ie-dropdown-width-expand.min.js?version=1552060969627"></script>\r\n\t < script >\r\n\t\tis_ie_8 = true;\r\n\t\tfixIE8ObjectKeys();\r\n\t\t$(document).ready(function () {\r\n\t\t\t
+            jQuery(\'select:not(#payment-type-select)\').ieExpandSele
+            ctWidth();\r\n\t\t
+        });\r\n\t</script>\r\n\t\t\t<![endif]-->\r\n\t\t</head>\r\n\t\t
+<body>\r\n\t\t\t<h1 class="hidden">城市售票網</h1>\r\n\r\n\r\n\r\n\r\n
+<div class="header">\r\n\t<a id="accessible-link" href="#site-content-main" style="text-decoration:none" title="跳到內容">&nbsp;<
+    /a>\r\n\t
+    <div class="banner-blk">\r\n\t\t
+        <div class="cursor-pointer" id="logo">\r\n\t\t\t<img tabindex="0"
+                                                             \r\n\t\t\t\t\tsrc="/internet/images/logo/urbtix_logo_tc.png"
+                                                             \r\n\t\t\t\t\ttitle="城市售票網" \r\n\t\t\t\t\talt="城市售票網"/>\r\n\t\t
+        </div>
+        \r\n\t\t<!--<img class="header-back
+ground" src="/internet/images/logo/urbtix_header.jpg"/>--> \r\n\t\t
+        <div class="cursor-pointer" id="cityline-logo">\r\n\t\t\t<img tabindex="0"
+                                                                      \r\n\t\t\t\t\tsrc="/internet/images/logo/cityline_logo_tc.gif"
+                                                                      \r\n\t\t\t\t\ttitle="按此瀏覽購票通網站"
+                                                                      \r\n\t\t\t\t\talt="按此瀏覽購票通網站"
+        />\r\n\t\t
+        </div>
+        \r\n\t
+    </div>
+    \r\n\t
+    <div id="header-background"></div>
+    \r\n\t
+    <div class="sub-tool-blk">\r\n\t\t
+        <div class="lang-tools-blk right">\r\n\t\t\t
+            <ul>\r\n\t\t\t\t\t
+                <li>\r\n\t\t\t\t\t\t<a class="change-lang-button" \r\n\t\t\t\t\t\t\tdata-lang_code="en_US"
+                                       \r\n\t\t\t\t\t\t\td
+                                       ata-form_name="" \r\n\t\t\t\t\t\t\ttitle="Switch to English"
+                                       \r\n\t\t\t\t\t\t\ttabindex="0">\r\nENG\t\t\t\t\t\t</a>\r\n\t\t\t\t\t
+                </li>
+                \r\n\t\t\t\t\t
+                <li>\r\n\t\t\t\t\t\t<a class="change-lang-button" \r\n\t\t\t\t\t\t\tdata-lang_code="zh_CN"
+                                       \r\n\t\t\t\t\t\t\tdata-form_name="" \r\n\t\t\t
+                                       \t\t\t\ttitle="转换成简体中文" \r\n\t\t\t\t\t\t\ttabindex="0">\r\n简体\t\t\t\t\t\t</a>\r\n\t\t\t\t\t
+                </li>
+                \r\n\t\t\t
+            </ul>
+            \r\n\t\t
+        </div>
+        \r\n\t\t
+        <div class="font-tools-blk right">\r\n\t\t\t<span tabindex="0" \r\n\t\t\t\t\ttitle="字型大小: 原設定"
+                                                          \r\n\t\t\t\t\tclass="font-tools font-d
+efault" id="font-default">A</span>\r\n\t\t \t<span tabindex="0" \r\n\t\t \t\t\ttitle="字型大小: 較大" \r\n\t\t
+                                                   \t\t\tclass="font-tools" id="font-larger">A</span>\r\n\t\t \t<span
+                tabindex="0" \r\n\t\t \t\t\ttitle="字型大小: 最大" \r\n\t\t \t\t\tclass="font-tools" id="font-
+largest">A</span>\r\n\t\t
+        </div>
+        \r\n\t
+    </div>
+    \r\n\t
+    <div class="main-tool-blk">\r\n\t\t
+        <div class="adv-srch-blk">\r\n\t\t\t
+            <form id="eventSearchForm" action="/internet/eventSearch/keyword" method="GET">\r\n\t\t\t\t\t
+                <table id="search-blk-tbl">\r\n\t\t\t\t\t\t
+                    <tr>\r\n\t\t\t\t\t\t\t
+                        <t
+                                d>\r\n\t\t\t\t\t\t\t\t<label class="hidden"
+                                                             for="adv-srch-txt">\r\n關鍵字搜尋\t\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t\t<input
+                                type="text" \r\n\t\t\t\t\t\t\t\t\t\tname="keyword"
+                                \r\n\t\t\t\t\t\t\t\t\t\tid="adv-srch-txt" \r\n\t\t\t\t\t\t\t\t\t\tplaceholder="關鍵字搜尋"/>\r\n\t\t\t\
+                            t\t\t\t</td>\r\n\t\t\t\t\t\t\t
+                            <td>\r\n\t\t\t\t\t\t\t\t<img tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\tclass="cursor-pointer"
+                                                         \r\n\t\t\t\t\t\t\t\t\t\tid="adv-srch-img"
+                                                         \r\n\t\t\t\t\t\t\t\t\t\tsrc="/internet/images/main/search_btn.png"
+                                                         \r\n\t\t\t\t\t\t\t\t\t\talt="按此搜尋" \r\n\t\t\t\t\t\t\t
+                                                         \t\t\ttitle="按此搜尋"/>\r\n\t\t\t\t\t\t\t\t<input type="submit"
+                                                                                                        class="hidden"
+                                                                                                        value="搜尋"/>\r\n\t\t\t\t\t\t\t
+                            </td>
+                            \r\n\t\t\t\t\t\t\t
+                            <td>\r\n\t\t\t\t\t\t\t\t
+                                <ol>\r\n\t\t\t\t\t\t\t\t\t
+                                    <li class="vertical-bar"> |</li>
+                                    \r\n\t\t\t\t\t\t\t\t
+                                </ol>
+                                \r\n\t\t\t\t\t\t\t
+                            </td>
+                            \r\n\t\t\t\t\t
+                            \t\t
+                            <td>\r\n\t\t\t\t\t\t\t\t
+                                <div id="event-adv-search-btn-blk">\r\n\t\t\t\t\t\t\t\t\t<span tabindex="0"
+                                                                                               id="adv-srch-submit-btn">\r\n\t\t\t\t\t\t\t\t\t\t<strong>進階搜尋</strong>\r\n\t\t\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t\t
+                                </div>
+                                \r\n\t\t\t\t\t\t\t
+                            </td>
+                            \r\n\t\t\t\t\t\t
+                    </tr>
+                    \r\
+                    n\t\t\t\t\t
+                </table>
+                \r\n\t\t\t
+            </form>
+            \r\n\t\t
+        </div>
+        \r\n\t\t
+        <div class="nav">\r\n\t\t\t
+            <ul class="drop-menu-top">\r\n\t\t\t\t
+                <li>\r\n\t\t\t\t\t<a tabindex="0">節目</a>\r\n\t
+                    <ul class="drop-menu-second">\r\n\t\t\t\t\t
+                        <li class="menu-category-items" data-category_id="cat148">\r\n\t\t
+                            \t\t\t\t<a tabindex="0" title="音樂">音樂</a>\r\n\t\t\t\t\t\t\t
+                            <ul class="drop-menu-third">\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub1">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="中樂團音樂">\r\n\t\t\t\t\t\t\t\t\t\t\t
+                                    中樂團音樂\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub2">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="西樂團音樂">\r\n\t\t\t\t\t\t\t\t\t\t\t西樂團音樂\r\n\t\
+                                    t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub184">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="中樂器樂">\r\n\t\t\t\t\t\t\t\t\t\t\t中樂器樂\r\n\t\t\t\t\t\t\t\t\t\t</
+                                    a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub185">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="西方器樂">\r\n\t\t\t\t\t\t\t\t\t\t\t西方器樂\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\
+                                    t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub3">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="西洋歌劇">\r\n\t\t\t\t\t\t\t\t\t\t\t西洋歌劇\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\
+                                r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub186">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="室樂">\r\n\t\t\t\t\t\t\t\t\t\t\t室樂\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li cl
+                                    ass="menu-category-items" data-category_id="sub187">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="中樂小組合奏">\r\n\t\t\t\t\t\t\t\t\t\t\t中樂小組合奏\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-c
+ategory-items" data-category_id="sub188">\r\n\t\t\t\t\t\t\t\t\t\t<a tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="爵士樂">\r\n\t\t\t\t\t\t\t\t\t\t\t爵士樂\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-cat
+                                    egory_id="sub4">\r\n\t\t\t\t\t\t\t\t\t\t<a tabindex="0"
+                                                                               \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="聲樂／合唱">\r\n\t\t\t\t\t\t\t\t\t\t\t聲樂／合唱\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub189"
+                                >\r\n\t\t\t\t\t\t\t\t\t\t<a tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="小組合唱／無伴奏演唱">\r\n\t\t\t\t\t\t\t\t\t\t\t小組合唱／無伴奏演唱\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="su
+b190">\r\n\t\t\t\t\t\t\t\t\t\t<a tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="世界音樂／當代音樂／敲擊音樂">\r\n\t\t\t\t\t\t\t\t\t\t\t世界音樂／當代音樂／敲擊音樂\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t
+                            </ul>
+                            \r\n\t\t\t\t\t
+                        </li>
+                        \r\n\t\t\t\
+                        t\t
+                        <li class="menu-category-items" data-category_id="cat149">\r\n\t\t\t\t\t\t<a tabindex="0"
+                                                                                                     title="中國戲曲">中國戲曲</a>\r\n\t\t\t\t\t\t\t
+                            <ul class="drop-menu-third">\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub148">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabin
+                                        dex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="粵劇">\r\n\t\t\t\t\t\t\t\t\t\t\t粵劇\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub149">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t
+                                        \t\t\ttitle="粵曲">\r\n\t\t\t\t\t\t\t\t\t\t\t粵曲\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub150">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="其他中國戲曲">
+                                    \r\n\t\t\t\t\t\t\t\t\t\t\t其他中國戲曲\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t
+                            </ul>
+                            \r\n\t\t\t\t\t
+                        </li>
+                        \r\n\t\t\t\t\t
+                        <li class="menu-category-items" data-category_id="cat150">\r\n\t\t\t\t\t\t<a tabindex="0"
+                                                                                                     title="舞蹈">舞蹈</a>\r\n\t\t\t
+                            \t\t\t\t
+                            <ul class="drop-menu-third">\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub102">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="芭蕾舞">\r\n\t\t\t\t\t\t\t\t\t\t\t芭蕾舞\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </
+                                li>\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub103">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="現代舞">\r\n\t\t\t\t\t\t\t\t\t\t\t現代舞\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t
+                                \t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub191">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="舞蹈劇場">\r\n\t\t\t\t\t\t\t\t\t\t\t舞蹈劇場\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li cla
+                                    ss="menu-category-items" data-category_id="sub101">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="中國舞">\r\n\t\t\t\t\t\t\t\t\t\t\t中國舞\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items
+" data-category_id="sub104">\r\n\t\t\t\t\t\t\t\t\t\t<a tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="民族舞">\r\n\t\t\t\t\t\t\t\t\t\t\t民族舞\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub
+192">\r\n\t\t\t\t\t\t\t\t\t\t<a tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="社交舞">\r\n\t\t\t\t\t\t\t\t\t\t\t社交舞\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub193">\r\n\t\t\t\t\t\t\t
+                                    \t\t\t<a tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="嘻哈／街頭／流行／爵士舞">\r\n\t\t\t\t\t\t\t\t\t\t\t嘻哈／街頭／流行／爵士舞\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t
+                            </ul>
+                            \r\n\t\t\t\t\t
+                        </li>
+                        \r\n\t\t\t\t\t
+                        <li class="menu-category-item
+s" data-category_id="cat151">\r\n\t\t\t\t\t\t<a tabindex="0" title="展覽">展覽</a>\r\n\t\t\t\t\t
+                        </li>
+                        \r\n\t\t\t\t\t
+                        <li class="menu-category-items" data-category_id="cat172">\r\n\t\t\t\t\t\t<a tabindex="0"
+                                                                                                     title="電影">電影</a>\r\n\t\t\t\t\t
+                        </li>
+                        \r\n\t\t\t\t\t
+                        <li class="menu-categ
+ory-items" data-category_id="cat173">\r\n\t\t\t\t\t\t<a tabindex="0" title="戲劇">戲劇</a>\r\n\t\t\t\t\t\t\t
+                            <ul class="drop-menu-third">\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub153">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\
+                                        ttitle="粵語話劇">\r\n\t\t\t\t\t\t\t\t\t\t\t粵語話劇\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub194">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="非粵語話劇"
+                                >\r\n\t\t\t\t\t\t\t\t\t\t\t非粵語話劇\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub195">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="音樂劇場">\r\n\t\t\t\t\t\t
+                                    \t\t\t\t\t音樂劇場\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub196">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="音樂劇">\r\n\t\t\t\t\t\t\t\t\t\t\t音樂劇\r\n\
+                                    t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t
+                            </ul>
+                            \r\n\t\t\t\t\t
+                        </li>
+                        \r\n\t\t\t\t\t
+                        <li class="menu-category-items" data-category_id="cat174">\r\n\t\t\t\t\t\t<a tabindex="0"
+                                                                                                     title="跨媒體藝術">跨媒體藝術</a>\r\n\t\t\t\t\t\t\t
+                            <ul class="drop-menu-th
+ird">\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub201">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="多媒體">\r\n\t\t\t\t\t\t\t\t\t\t\t多媒體\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t
+                                \t\t
+                                <li class="menu-category-items" data-category_id="sub202">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="形體劇場／默劇">\r\n\t\t\t\t\t\t\t\t\t\t\t形體劇場／默劇\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li
+                                        class="menu-category-items" data-category_id="sub203">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="偶戲">\r\n\t\t\t\t\t\t\t\t\t\t\t偶戲\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items
+" data-category_id="sub204">\r\n\t\t\t\t\t\t\t\t\t\t<a tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="魔術">\r\n\t\t\t\t\t\t\t\t\t\t\t魔術\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub205"
+                                >\r\n\t\t\t\t\t\t\t\t\t\t<a tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="雜技">\r\n\t\t\t\t\t\t\t\t\t\t\t雜技\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub206">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="馬戲">\r\n\t\t\t\t\t\t\t\t\t\t\t馬戲\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub207">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t
+                                        \t\t\t\t\t\ttitle="小丑">\r\n\t\t\t\t\t\t\t\t\t\t\t小丑\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub156">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="綜合表演
+">\r\n\t\t\t\t\t\t\t\t\t\t\t綜合表演\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t
+                            </ul>
+                            \r\n\t\t\t\t\t
+                        </li>
+                        \r\n\t\t\t\t\t
+                        <li class="menu-category-items" data-category_id="cat196">\r\n\t\t\t\t\t\t<a tabindex="0"
+                                                                                                     title="流行音樂會">流行音樂會</a>
+                            \r\n\t\t\t\t\t
+                        </li>
+                        \r\n\t\t\t\t\t
+                        <li class="menu-category-items" data-category_id="cat198">\r\n\t\t\t\t\t\t<a tabindex="0"
+                                                                                                     title="藝術節">藝術節</a>\r\n\t\t\t\t\t\t\t
+                            <ul class="drop-menu-third">\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub197">\r\n\t
+                                    \t\t\t\t\t\t\t\t\t<a tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="國際綜藝合家歡">\r\n\t\t\t\t\t\t\t\t\t\t\t國際綜藝合家歡\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub198">\r\n\t\t\t\t\
+                                    t\t\t\t\t\t<a tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="新視野藝術節">\r\n\t\t\t\t\t\t\t\t\t\t\t新視野藝術節\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub199">\r\n\t\t\t\t\t\t\t\t\t\t
+                                    <a tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="世界文化藝術節">\r\n\t\t\t\t\t\t\t\t\t\t\t世界文化藝術節\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub200">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabi
+                                        ndex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="中國戲曲節">\r\n\t\t\t\t\t\t\t\t\t\t\t中國戲曲節\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub232">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\
+                                        t\t\t\t\t\t\t\t\t\ttitle="其他藝術節/系列式節目">\r\n\t\t\t\t\t\t\t\t\t\t\t其他藝術節/系列式節目\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t
+                            </ul>
+                            \r\n\t\t\t\t\t
+                        </li>
+                        \r\n\t\t\t\t\t
+                        <li class="menu-category-items" data-category_id="cat199">\r\n\
+                            t\t\t\t\t\t<a tabindex="0" title="合家歡節目">合家歡節目</a>\r\n\t\t\t\t\t
+                        </li>
+                        \r\n\t\t\t\t\t
+                        <li class="menu-category-items" data-category_id="cat201">\r\n\t\t\t\t\t\t<a tabindex="0"
+                                                                                                     title="全天域電影">全天域電影</a>\r\n\t\t\t\t\t
+                        </li>
+                        \r\n\t\t\t\t\t
+                        <li class="menu-category-items"
+                            data-category_id="cat202">\r\n\t\t\t\t\t\t<a tabindex="0" title="天象節目">天象節目</a>\r\n\t\t\t\t\t
+                        </li>
+                        \r\n\t\t\t\t\t
+                        <li class="menu-category-items" data-category_id="cat175">\r\n\t\t\t\t\t\t<a tabindex="0"
+                                                                                                     title="其他">其他</a>\r\n\t\t\t\t\t\t\t
+                            <ul class="drop-menu-third">\r
+                                \n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-category-items" data-category_id="sub107">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="體育節目">\r\n\t\t\t\t\t\t\t\t\t\t\t體育節目\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\
+                                t
+                                <li class="menu-category-items" data-category_id="sub208">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="觀眾拓展活動">\r\n\t\t\t\t\t\t\t\t\t\t\t觀眾拓展活動\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class=
+                                            "menu-category-items" data-category_id="sub209">\r\n\t\t\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="工作坊／訓練班">\r\n\t\t\t\t\t\t\t\t\t\t\t工作坊／訓練班\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t
+                                <li class="menu-c
+ategory-items" data-category_id="sub108">\r\n\t\t\t\t\t\t\t\t\t\t<a tabindex="0" \r\n\t\t\t\t\t\t\t\t\t\t\ttitle="其他">\r\n\t\t\t\t\t\t\t\t\t\t\t其他\r\n\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t
+                                </li>
+                                \t\t\t\t\t\r\n\t\t\t\t\t\t\t
+                            </ul>
+                            \r\n\t\t\t\t\t
+                        </li>
+                        \r\n\t
+                    </ul>
+                    \r\n\t\t\t\t<
+                    /li>\r\n\t\t\t\t
+                <li>\r\n\t\t\t\t\t<a tabindex="0">場地</a>\r\n\t
+                    <ul class="drop-menu-second">\r\n\t\t\t\t\t
+                        <li class="menu-region-items" data-region_id="100">\r\n\t\t\t\t\t\t<a tabindex="0"
+                                                                                              title="香港">香港</a>\r\n\t\t\t\t\t
+                        </li>
+                        \r\n\t\t\t\t\t
+                        <li class="menu-region-items" data-r
+                            egion_id="101">\r\n\t\t\t\t\t\t<a tabindex="0" title="九龍">九龍</a>\r\n\t\t\t\t\t
+                        </li>
+                        \r\n\t\t\t\t\t
+                        <li class="menu-region-items" data-region_id="102">\r\n\t\t\t\t\t\t<a tabindex="0"
+                                                                                              title="新界">新界</a>\r\n\t\t\t\t\t
+                        </li>
+                        \r\n\t
+                    </ul>
+                    \r\n\t\t\t\t
+                </li>
+                \r\n\t\t\t\t
+                <li class=" ">\r
+                    \n\t\t\t\t\t<a tabindex="0">顧客服務</a>\r\n\t
+                    <ul class="drop-menu-second">\r\n\t\t\t
+                        <li class="menu-member-items" data-member_item_id="2">\r\n\t\t\t\t\t<a tabindex="0"
+                                                                                               \r\n\t\t\t\t\t\ttitle="翻查交易資料">\r\n翻查交易資料\t\t\t\t\t</a>\r\n\t\t\t\t
+                            <ul class="drop-menu-third">\r\n\
+                                t\t\t\t\t\t\t
+                                <li class="menu-member-items" data-member_item_id="4">\r\n\t\t\t\t\t\t\t\t<a
+                                        tabindex="0" \r\n\t\t\t\t\t\t\t\t\ttitle="非會員">\r\n非會員\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t
+                                </li>
+                                \r\n\t\t\t\t
+                            </ul>
+                            \r\n\t\t\t
+                        </li>
+                        \r\n\t
+                    </ul>
+                    \r\n\t\t\t\t
+                </li>
+                \r\n\t\t\t
+            </ul>
+            \r\n\t\t</di
+            v>\r\n\t\t
+            <div class="mem-tools-blk">\r\n\t\t\t
+                <div class="shopping-cart mem-tools-item">\r\n\t\t\t\t<a class="shopping-cart-link" tabindex="0"
+                                                                         title="購物籃">\r\n購物籃\t\t\t\t\t\r\n\t\t\t\t</a>\r\n\t\t\t
+                </div>
+                \r\n\t\t\t
+                <div class="vertical-bar"> |</div>
+                \r\n\t\t\t
+                <div class="me
+m-login-state mem-tools-item" data-is_login=1 data-login_type="non">\r\n\t\t\t\t<a class="mem-login-state-link"
+                                                                                   tabindex="0" title="登出">\r\n\t\t\t\t\t登出\r\n\t\t\t\t</a>\r\n\t\t\t
+                </div>
+                \r\n\t\t\t
+                <div class="vertical-bar"> |</div>
+                \r\n\t\t\t
+                <div class="system-exit mem-tools-ite
+m">\r\n\t\t\t\t<a class="system-exit-link" tabindex="0" title="離開">\r\n離開\t\t\t\t</a>\r\n\t\t\t
+                </div>
+                \r\n\t\t\t
+                <div class="bookmark-blk cursor-pointer">\r\n\t\t\t\t<img src="/internet/images/main/bookmark.png"
+                                                                          \r\n\t\t\t\t\t\talt="到我的書籤"
+                                                                          \r\n\t\t\t\t\t\ttitle="到我的書籤"
+                />\r\n\t\t\t
+                </div>
+                \r\n\t\t
+            </div>
+            \r\n\t\t\r\n\t
+        </div>
+        \r\n
+    </div>
+    \t\t\t
+    <div class="container">\r\n\t
+        <div class="popup-layer hidden" id="search-keyword-alert-layer">\r\n\t\t
+            <div>搜尋關鍵字過短</div>
+            \r\n\t
+        </div>
+        \r\n\t\t\t\t<img id="site-content-main" \r\n\t\t\t\t\t\ttabindex="0" \r\n\t
+                         \t\t\t\t\tsrc="/internet/images/main/skip_to_content.png" \r\n\t\t\t\t\t\ttitle="內容"
+                         \r\n\t\t\t\t\t\talt=""/>\r\n\r\n
+        <div class="session-timer-blk visibility">\r\n\t
+            <div class="session-info">\r\n\t\t
+                <div>﻿請於剩餘時間內完成交易，否則逾時後系統會釋放已選擇之座位並自動登出系統。</
+                div>\r\n\t\t
+                <div id="session-time-left">\r\n\t\t\t
+                    <script>\r\n\t\t\t\t$(\'#session-time-left\').html(getSessionTimeLeft());\r\n\t\t\t</script>
+                    \t\r\n\t\t
+                </div>
+                \r\n\t\t
+                <div class="session-timer-countdown">剩餘時間</div>
+                \r\n\t
+            </div>
+            \r\n\t\r\n\t\r\n\t
+            <div class="session-detail">\r\n\
+                t\t
+                <div class="layout-helper"></div>
+                \r\n\t
+            </div>
+            \r\n\r\n\t
+            <div class="popup-layer hidden" id="session-timer-alert-layer">\r\n\t\t<span
+                    id="session-timer-alert-message"></span>\r\n\t
+            </div>
+            \r\n
+        </div>
+        \t\t\t\t\r\n\r\n\t
+        <div class="popup-layer hidden" id="simple-alert-box-layer">\r\n\
+            t<span id="simple-alert-message"></span>\r\n\t
+        </div>
+        \r\n\t\t\t\t\r\n\r\n\t
+        <div class="popup-layer hidden" id="hot-event-alert-box-layer">\r\n\t<span id="hot-event-alert-message">\r\n\t\t\tHot Event is not set.\r\n\t</span>\r\n\t
+        </div>
+        \r\n\t\t\t\t\r\n\t\t
+        <form id="reviewTicketForm
+" name="reviewTicketForm" method="POST">\r\n\t\t\t\t<input type="submit" class="hidden" value="確定">\r\n\t\t\t\t<input
+                type="hidden" name="reviewType" value="reviewing"/>\r\n\t\t\t\t
+            <div class="ticket-reivew-title title-txt">門票查閱</div>
+            \r\n\t\t\t\t
+            <div class="ticket-review-in
+struction instruction-blk">\r\n\t
+                <ul class="instruction-bullet">\r\n\t\t\t
+                    <li><span class="instruction-bullet-span">請查看閣下所選之座位及票價和票類。我們的系統將會在閣下揀選座位及票價類別之後，為這項交易計算適合的優惠價格。確認票價及票類後，請按「加入購物籃」鍵。揀選之座位將會預
+留至購票時限屆滿，逾時無效。</span></li>
+                    \r\n\t\t\t
+                    <li><span class="instruction-bullet-span">若節目票價類別設有閣下適用的會員優惠，請輸入該會藉之會員資料，以便享有個別節目之折扣優惠。</span></li>
+                    \r\n\t\t\t
+                    <li><span class="instruction-bullet-span">確定票價及票類無誤，按「加入購物籃
+」。</span></li>
+                    \r\n\t\t\t
+                    <li><span class="instruction-bullet-span">要移除個別座位，按「取消」(在每個座位旁邊)。</span></li>
+                    \r\n\t\t\t
+                    <li><span class="instruction-bullet-span">要移除全部座位，並重新選擇，按「全部取消」鍵。</span></li>
+                    \r\n\t\t\t
+                    <li><span class="instruction-bullet-
+span">如門票上印有持票人姓名，持票人於入場時需出示與門票上的姓名相同的附有相片的身分證明文件供核對，否則會被拒入場，所繳票款亦會不獲退還。</span></li>
+                    \r\n\t
+                </ul>
+                \r\n\t\t\t\t
+            </div>
+            \r\n\t\t\t\t\r\n\t
+            <div class="error error-message-blk error-message-blk font-bold hidden wheelchair-t
+ickettype-rule-message">\r\n\t\t\t看顧人不能多於輪椅使用者。請更改看顧人的數量至相等或少於輪椅使用者或按「全部取消」鍵重新選擇。\r\n\t
+            </div>
+            \r\n\t
+            <div class="error-msg-blk error hidden" id="ticket-review-125848-error"></div>
+            \r\n\t\r\n\t
+            <div class="popup-layer hidden" id="release-
+seat-alert-layer">\r\n \t<span id="release-seat-alert-message">< /span>\r\n\t</div>
+            \r\n\t\r\n\t
+            <div class="popup-layer hidden" id="confirm-your-real-name-layer">\r\n \t<span
+                    id="confirm-real-name-alert-message">< /span>\r\n\t</div>
+            \r\n\t\r\n\t
+            <div class="ticket-review-blk
+" id="ticket-review-125848-blk">\r\n\t\t
+                <table class="ticket-review-tbl">\r\n\t\t\t
+                    <caption class="hidden">表演節目資料</caption>
+                    \r\n\t\t\t
+                    <tr class="title review-performance-name-row">\r\n\t\t\t\t
+                        <td class="title-col">表演節目名稱:</td>
+                        \r\n\t\t\t\t
+                        <td>\r\n\t\t\t\t\t
+                            <div class="
+event-title-div"><strong>《好運繼續獻愛心。流行經典50年》演唱會</strong></div>
+                            \r\n\t\t\t\t\t
+                            <div class="review-tools-blk">\r\n\t\t\t\t\t\t\t
+                                <div class="review-cancel-seats-btn right cursor-pointer"
+                                     data-performance_id=125848\r\n\t\t\t\t\t\t\t\tdata-order_id=16202047\r\n\t\t\t\t\t
+                                     \t\t>\r\n\t
+                                    <div class="btn-outer-blk cursor-pointer">\r\n\t\t
+                                        <div class="btn-inner-blk">\r\n\t\t\t<span tabindex="0">\r\n全部取消\t\t\t</span>\r\n\t\t
+                                        </div>
+                                        \r\n\t
+                                    </div>
+                                    \r\n\t\t\t\t\t\t\t
+                                </div>
+                                \r\n\t\t\t\t\t\t\t\t
+                                <div class="alternative-seats-vewi-btn cursor-pointer right" data-pe
+                                     rformance_id=125848>\r\n\t
+                                    <div class="btn-outer-blk cursor-pointer">\r\n\t\t
+                                        <div class="btn-inner-blk">\r\n\t\t\t<span tabindex="0">\r\n其他可選座位\t\t\t</span>\r\n\t\t
+                                        </div>
+                                        \r\n\t
+                                    </div>
+                                    \r\n\t\t\t\t\t\t\t\t
+                                </div>
+                                \r\n\t\t\t\t\t
+                            </div>
+                            \r\n\t\t\t\t
+                        </td>
+                        \r\n\t\t\t
+                    </tr>
+                    \r\n\t\t\t
+                    <tr c
+                        lass="review-performance-venue-row">\r\n\t\t\t\t
+                        <td class="title-col">場地:</td>
+                        \r\n\t\t\t\t
+                        <td>上環文娛中心劇院</td>
+                        \r\n\t\t\t
+                    </tr>
+                    \r\n\t\t\t
+                    <tr class="review-performance-date-row">\r\n\t\t\t\t
+                        <td class="title-col">日期:</td>
+                        \r\n\t\t\t\t\r\n\t\t\t\t
+                        <td>\r\n\t\t\t\t\t\t2019/05/23
+                            星期四\r\n\t\t\t\t\r\n\t\t\t\t下午7\r\n\t\t\t時30分\r\n\t\t\t\t
+                        </td>
+                        \r\n\t\t\t
+                    </tr>
+                    \r\n\t\t\t
+                    <tr>\r\n\t\t\t\t
+                        <td><br></td>
+                        \r\n\t\t\t\t
+                        <td class="error">\r\n\t\t\t\t</td>
+                        \r\n\t\t\t
+                    </tr>
+                    \r\n\t\t\t\t
+                    <tr class="review-performance-seats-row">\r\n\t\t\t\t\t
+                        <td class="title-col">座位編
+                            號:
+                        </td>
+                        \r\n\t\t\t\t\t
+                        <td>\r\n\t\t\t\t\t\t
+                            <table class="ticket-review-seats-tbl" id="ticket-review-seats-125848-tbl">
+                                \r\n\t\t\t\t\t\t\t
+                                <tr>\r\n\t\t\t\t\t\t\t\t
+                                    <td class="seats-section-col">段:</td>
+                                    \r\n\t\t\t\t\t\t\t\t
+                                    <td class="seats-row-col">行:</td>
+                                    \r\n\t\t\t\t\t\t\t\t
+                                    <td clas
+                                        s="seats-col-col">位:
+                                    </td>
+                                    \r\n\t\t\t\t\t\t\t\t
+                                    <td class="seat-ticket-price-col">門票類別及票價:</td>
+                                    \r\n\t\t\t\t\t\t\t
+                                </tr>
+                                \r\n\t\t\t\t\t\t\t\t\t
+                                <tr class="tbl-even-row " id="seat-row-1">\r\n\t\t\t\t\t\t\t\t\t\t\t
+                                    <td><input type="hidden" class="review-update-seat-id" data-id="849
+88069">STAL
+                                    </td>
+                                    \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t
+                                    <td>E</td>
+                                    \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t
+                                    <td>1</td>
+                                    \r\n\t\t\t\t\t\t\t\t\t\t
+                                    <td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<select class="ticket-review-select"
+                                                                            \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tid="ticket-review-select-1"
+                                                                            \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tn
+                                                                            ame="seatTicketTypeList[0].newTicketTypeId"
+                                                                            \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\ttitle="請選擇票價">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t
+                                        <option value="223"
+                                                selected\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tdata-ticket_type_code="STAN">
+                                            正價票 $200
+                                        </option>
+                                        \r\n\t\t\t\t\t\t\t\t\t\t\t\t</select>\r\n
+                                        \t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t<a tabindex="0"
+                                                                                         class="remove-seat-btn cursor-pointer alink-decoration"
+                                                                                         \r\n\t\t\t\t\t\t\t\t\t\t\t\t
+                                                                                         data-performance_id="125848"
+                                                                                         \r\n\t\t\t\t\t\t\t\t\t\t\t\t
+                                                                                         data-seat_id="84988069"
+                                                                                         \r\n\t\t\t\t\t\t\t\t\t\t\t\t
+                                                                                         data-item_id="1" \r\n
+                                                                                         \t\t\t\t\t\t\t\t\t\t\t\t
+                                                                                         title="取消">取消\r\n\t\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t<input
+                                                type="hidden" name="seatTicketTypeList[0].useRealNameTicket"
+                                                value="false"/>\r\n\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t
+                                        <div class="hidd
+en error ticket-type-update-error">\r\n\t\t\t\t\t\t\t\t\t\t\t
+                                        </div>
+                                        \r\n\t\t\t\t\t\t\t\t\t\t\t\t<input type="hidden" value="125848"
+                                                                           \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t
+                                                                           name="performanceIds"/>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<input
+                                                type="hidden" value="12952" \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t
+                                                name="hosueId"/>\r\n\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t<input
+                                                type="hidden" value="1" name="seatTicketTypeList[0].orderItemId"/>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<input
+                                                type="hidden" value="368" name="seatTicketTypeList[0].priceZoneId"/>\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\
+                                        t\t\t\t\t\t\t\t\t<input type="hidden" value="223"
+                                                                name="seatTicketTypeList[0].currentTicketTypeId"/>\r\n\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t
+                                    </td>
+                                    \r\n\t\t\t\t\t\t\t\t\t\t\t
+                                    <td class="seat-preview-col choosen-seat cursor-pointer"
+                                        \r\n\t\t\t\t\t\t\t\t\t\t\t\talign="middle" \
+                                        r\n\t\t\t\t\t\t\t\t\t\t\t\ttabIndex="1"
+                                        \r\n\t\t\t\t\t\t\t\t\t\t\t\tdata-performance_id=125848
+                                        \r\n\t\t\t\t\t\t\t\t\t\t\t\tdata-seat_id=84988069\r\n\t\t\t\t\t\t\t\t\t\t\t\tdata-price-zone-id=368\r\n\t\t\t\t\t\t\t\t\t\t\t\tdata-house-id=12952>
+                                        \r\n座位預覽\t\t\t\t\t\t\t\t\t\t\t
+                                    </td>
+                                    \r\n\t\t\t\t\t\t\t\t\t
+                                </tr>
+                                \r\n\t\t\t\t\t\t\t\t\t
+                                <tr class="tbl-odd-row " id="seat-row-2">\r\n\t\t\t\t\t\t\t\t\t\t\t
+                                    <td><input type="hidden" class="review-update-seat-id" data-id="84988071">STAL</td>
+                                    \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t
+                                    <td>E</td>
+                                    \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t
+                                    <td>2</td>
+                                    \
+                                    r\n\t\t\t\t\t\t\t\t\t\t
+                                    <td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<select class="ticket-review-select"
+                                                                            \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tid="ticket-review-select-2"
+                                                                            \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tname="seatTicketTypeList[1].newTicketTypeId"
+                                                                            \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\ttitle="請選擇票價">\r\
+                                        n\t\t\t\t\t\t\t\t\t\t\t\t\t\t
+                                        <option value="223"
+                                                selected\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tdata-ticket_type_code="STAN">
+                                            正價票 $200
+                                        </option>
+                                        \r\n\t\t\t\t\t\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t<a
+                                            tabindex="0" class="remove-seat-btn cursor-point
+er alink-decoration" \r\n\t\t\t\t\t\t\t\t\t\t\t\t data-performance_id="125848" \r\n\t\t\t\t\t\t\t\t\t\t\t\t
+                                            data-seat_id="84988071" \r\n\t\t\t\t\t\t\t\t\t\t\t\t data-item_id="2"
+                                            \r\n\t\t\t\t\t\t\t\t\t\t\t\t title="取消">取消\r\n\t\t\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t\
+                                        t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t<input type="hidden"
+                                                                              name="seatTicketTypeList[1].useRealNameTicket"
+                                                                              value="false"/>\r\n\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t
+                                        <div class="hidden error ticket-type-update-error">\r\n\t\t\t\t\t\t\t\t\t\t\t
+                                        </div>
+                                        \r\n\t\t\t\t\t\t\t\t\t\t\t\r\n
+                                        \t\t\t\t\t\t\t\t\t\t\t\t<input type="hidden" value="2"
+                                                                       name="seatTicketTypeList[1].orderItemId"/>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<input
+                                                type="hidden" value="368" name="seatTicketTypeList[1].priceZoneId"/>\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t<input
+                                                type="hidden" value="22
+3" name="seatTicketTypeList[1].currentTicketTypeId"/>\r\n\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t
+                                    </td>
+                                    \r\n\t\t\t\t\t\t\t\t\t\t\t
+                                    <td class="seat-preview-col choosen-seat cursor-pointer"
+                                        \r\n\t\t\t\t\t\t\t\t\t\t\t\talign="middle"
+                                        \r\n\t\t\t\t\t\t\t\t\t\t\t\ttabIndex="1" \r\n\t\t
+                                        \t\t\t\t\t\t\t\t\t\tdata-performance_id=125848
+                                        \r\n\t\t\t\t\t\t\t\t\t\t\t\tdata-seat_id=84988071\r\n\t\t\t\t\t\t\t\t\t\t\t\tdata-price-zone-id=368\r\n\t\t\t\t\t\t\t\t\t\t\t\tdata-house-id=12952>
+                                        \r\n座位預覽\t\t\t\t\t\t\t\t\t\t\t
+                                    </td>
+                                    \r\n\t\t\t\t\t\t\t\t\t
+                                </tr>
+                                \r\n\r\n\r\n\t\t\t\t
+                                \t\t\t\t
+                                <tr class="seat-ids hidden">
+                                    <td>\t\t\t\t\t\t\t\t\t\t84988071,\t\t\t\t\t\t\t\t\t\t84988069,\r\n\r\n</td>
+                                </tr>
+                                \r\n\t\t\t\t\t\t\t\t
+                                <tr class="seat-infos hidden">
+                                    <td>
+                                        \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\
+                                        t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t84988069;\r\nSTAL;\r\nE;1;\r\n正價票;$200;\r\n368;\r\n12952;\r\nFSTAL;\r\nfalse|\r\n84988071;\r\nSTAL;\r\nE;2;\r\n正價票;$200;\r\n368;\r\n12952;\r\nFSTAL;\r\nfalse\r\n
+                                    </td>
+                                </tr>
+                                \r\n\t\t\t
+                                \t\t\t\t\t
+                                <tr class="seat-template" id="seat-template-125848-row">\r\n\t\t\t\t\t\t\t\t\t
+                                    <td>\r\n\t\t\t\t\t\t\t\t\t\t\t<img class="template-img" id="template-125848"
+                                                                       src="/internet/p_image/seat_plan/125848.jpg"
+                                                                       data-src="/internet/p_image/seat_plan/125848.jpg"/>\r\n\t\t\t\t\t\t\t\
+                                        t\t
+                                    </td>
+                                    \r\n\t\t\t\t\t\t\t\t
+                                </tr>
+                                \r\n\t\t\t\t\t\t\t\t
+                                <tr class="alternative-seats-row hidden">\r\n\t\t\t\t\t\t\t\t\t
+                                    <td class="alternative-seats-col" colspan="4">\r\n\t\t\t\t\t\t\t\t\t\t
+                                        <div id="alternative-seats-view-125848"
+                                             class="alternative-seats-view-blk hidden">\r\n\t\t\t\t
+                                            \t\t\t\t\t\t\t
+                                            <table id="alternative-review-seats-125848-tbl" \r\n\t\t\t\t\t\t\t\t\t\t\t\t
+                                                   class="ticket-review-seats-tbl alternative-seats-review-tbl">
+                                                \r\n\t\t\t\t\t\t\t\t\t\t\t\t
+                                                <tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t
+                                                    <td class="seats-section-col">段:</td>
+                                                    \r\n\t\t\t\t\t\t\t\t\t\t\t\
+                                                    t\t
+                                                    <td class="seats-row-col">行:</td>
+                                                    \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t
+                                                    <td class="seats-col-col">位:</td>
+                                                    \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t
+                                                    <td class="seat-ticket-price-col">門票類別及票價:</td>
+                                                    \r\n\t\t\t\t\t\t\t\t\t\t\t\t
+                                                </tr>
+                                                \r\n\t\t\t\t\t\t\t\t\t\t\t
+                                            </table>
+                                            \r\n\t\t\t\t\t\t\t\t\t\t\t
+                                            <d
+                                                    iv class="alternative-seat-view-tools-blk">
+                                                \r\n\t\t\t\t\t\t\t\t\t\t\t\t
+                                                <div class="pick-alternative-seats-btn cursor-pointer left"
+                                                     \r\n\t\t\t\t\t\t\t\t\t\t\t\t\tdata-performance_id=125848\r\n\t\t\t\t\t\t\t\t\t\t\t\t\tdata-order_id=16202047>
+                                                    \r\n\t
+                                                    <div class="btn-outer-blk cursor-p
+ointer">\r\n\t\t
+                                                        <div class="btn-inner-blk">\r\n\t\t\t<span tabindex="0">\r\n選擇\t\t\t</span>\r\n\t\t
+                                                        </div>
+                                                        \r\n\t
+                                                    </div>
+                                                    \r\n\t\t\t\t\t\t\t\t\t\t\t\t
+                                                </div>
+                                                \r\n\t\t\t\t\t\t\t\t\t\t\t\t
+                                                <div class="cancel-alternative-seats-btn cursor-pointer left"
+                                                     \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t data-de
+                                                     ep_cancel=1\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t
+                                                     data-performance_id=125848\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t
+                                                     data-order_id=16202047>\r\n\t
+                                                    <div class="btn-outer-blk cursor-pointer">\r\n\t\t
+                                                        <div class="btn-inner-blk">\r\n\t\t\t<span tabindex="0">\r\n取消\t\t\t</span>\r\n\t\t
+                                                        </div>
+                                                        \r\n\t
+                                                    </div
+                                                    >
+                                                    \r\n\t\t\t\t\t\t\t\t\t\t\t\t
+                                                </div>
+                                                \r\n\t\t\t\t\t\t\t\t\t\t\t
+                                        </div>
+                                        \r\n\t\t\t\t\t\t\t\t\t\t
+            </div>
+            \r\n\t\t\t\t\t\t\t\t\t\t
+            <div id="alternative-seats-empty-125848" class="alternative-seats-view-blk hidden">
+                \r\n\t\t\t\t\t\t\t\t\t\t\t<p class="alternative-empty">沒有其他可選座位</p>\
+                r\n\t\t\t\t\t\t\t\t\t\t\t
+                <div class="alternative-seat-view-tools-blk">\r\n\t\t\t\t\t\t\t\t\t\t\t\t
+                    <div class="cancel-alternative-seats-btn cursor-pointer left" \r\n\t\t\t\t\t\t\t\t\t\t\t\t
+                         data-deep_cancel=0\r\n\t\t\t\t\t\t\t\t\t\t\t\t data-performance_id=125848\r\n\t\t\t\
+                         t\t\t\t\t\t\t\t\t data-order_id=16202047>\r\n\t
+                        <div class="btn-outer-blk cursor-pointer">\r\n\t\t
+                            <div class="btn-inner-blk">\r\n\t\t\t<span tabindex="0">\r\n取消\t\t\t</span>\r\n\t\t</div>
+                            \r\n\t
+                        </div>
+                        \r\n\t\t\t\t\t\t\t\t\t\t\t\t
+                    </div>
+                    \r\n\t\t\t\t\t\t\t\t\t\t\t
+                </div>
+                \r\n\t\t\t
+                \t\t\t\t\t\t\t
+            </div>
+            \r\n\t\t\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t</table>\r\n\t\t\t\t\t</td>
+            \r\n\t\t\t\t</tr>\r\n\t\t\t\t
+            <tr class="review-performance-quantity-row">\r\n\t\t\t\t\t
+                <td class="title-col">門票數量:</td>
+                \r\n\t\t\t\t\t
+                <td class="quantity-col">2</
+                td>\r\n\t\t\t\t
+            </tr>
+            \r\n\t\t</table>\r\n\t\t
+            <div class="review-seat-remark-blk">\r\n\t\t\t\r\n\t\t</div>
+            \r\n\t
+    </div>
+    \r\n\t\t\t\t\r\n\t\t\t\t\t
+    <div class="ticket-review-confirm-btn" data-review_type="reviewing">\t
+        <div class="btn-outer-blk cursor-pointer">\r\n\t\t
+            <div class="btn-in
+ner-blk">\r\n\t\t\t<span tabindex="0">\r\n加入購物籃\t\t\t</span>\r\n\t\t
+            </div>
+            \r\n\t
+        </div>
+        \r\n
+    </div>
+    \r\n\t\t</form>\r\n\t\t\t</div>
+\r\n\t\t\t\t
+<div class="popup-layer hidden" id="logout-alert-layer">\r\n\t\t\t \t<span id="logout-alert-message">您的購物籃尚有已選擇之座位, 如
+您選擇 "確定", 系統會釋放所有座位並自動登出系統。\t</span>\r\n\t\t\t\t
+</div>
+\r\n\t\t\t
+<div class="popup-layer hidden" id="exit-alert-layer">\r\n\t\t \t<span id="exit-alert-message">您的購物籃尚有已選擇之座位, 如您選擇 "確定", 系統會釋放所有座位並自動離開系統。\t</span>\r\n\t\
+    t\t
+</div>
+\r\n\t
+<div class="popup-layer hidden" id="connection-error-alert-layer">\r\n\t\t
+    <div id="connection-error-alert-msg">連線逾時,請重試</div>
+    \r\n\t
+</div>
+\r\n\r\n\r\n
+<div class="footer">\r\n\t
+    <hr class="dotted">
+    \r\n\t
+    <div id="footer-first-part">\r\n\t\t
+        <ul>\r\n\t\t\t
+            <li>\t<a
+                    class="alink-decoration" \r\n\t\t\ttitle="按此瀏覽主頁" \r\n\t\t\thref="/internet" \r\n>主頁</a>\r\n\t<span>&nbsp;&sdot;&nbsp;</span>\r\n
+            </li>
+            \r\n\t\t\t
+            <li>\t<a class="alink-decoration" \r\n\t\t\ttitle="按此瀏覽關於我們" \r\n\t\t\thref="/internet/footer/aboutUs" \r\n>關於我們</a>\r\n\
+                t<span>&nbsp;&sdot;&nbsp;</span>\r\n
+            </li>
+            \r\n\t\t\t
+            <li>\t<a class="alink-decoration" \r\n\t\t\ttitle="按此瀏覽服務收費詳情"
+                     \r\n\t\t\thref="/internet/footer/serviceCharge" \r\n>服務收費</a>\r\n\t<span>&nbsp;&sdot;&nbsp;</span>\r\n
+            </li>
+            \r\n\t\t\t
+            <li>\t<a class="alink-decoration" \r\n\
+                     t\t\ttitle="按此瀏覽售票處(opens new window 在新視窗開啟 在新视窗开启)"
+                     \r\n\t\t\thref="http://www.lcsd.gov.hk/tc/ticket/counter.html" \r\n\t\t\ttarget="_blank" \r\n\t\t>售票處</a>\r\n\t<span>&nbsp;&sdot;&nbsp;</span>\r\n
+            </li>
+            \r\n\t\t\t
+            <li>\t<a class="alink-decoration" \r\n\t\t\ttitl
+                     e="按此瀏覽自助取票機(opens new window 在新視窗開啟 在新视窗开启)"
+                     \r\n\t\t\thref="http://www.cityline.com/chi/helpdesk/locationOfuTdm.jsp" \r\n\t\t\ttarget="_blank"
+                     \r\n\t\t>自助取票機</a>\r\n\t<span>&nbsp;&sdot;&nbsp;</span>\r\n
+            </li>
+            \r\n\t\t\t
+            <li>\t<a class="alink-decoration" \r\n\
+                     t\t\ttitle="按此瀏覽每月節目表(opens new window 在新視窗開啟 在新视窗开启)"
+                     \r\n\t\t\thref="http://www.lcsd.gov.hk/tc/ticket/urbtix_events/monthly_programme.html"
+                     \r\n\t\t\ttarget="_blank" \r\n\t\t>每月節目表</a>\r\n\t<span>&nbsp;&sdot;&nbsp;</span>\r\n
+            </li>
+            \r\n\t\t\t
+            <li>\t<a class=
+                             "alink-decoration" \r\n\t\t\ttitle="按此瀏覽保安及私隱"
+                     \r\n\t\t\thref="/internet/footer/securityAndPrivacy"
+                     \r\n>保安及私隱</a>\r\n\t<span>&nbsp;&sdot;&nbsp;</span>\r\n
+            </li>
+            \r\n\t\t\t
+            <li>\t<a class="alink-decoration" \r\n\t\t\ttitle="按此瀏覽購票條款及細則" \r\n\t\t\thref="/internet/
+footer/tnc" \r\n>購票條款及細則</a>\r\n\t<span>&nbsp;&sdot;&nbsp;</span>\r\n
+            </li>
+            \r\n\t\t\t
+            <li>\t<a class="alink-decoration" \r\n\t\t\ttitle="按此瀏覽常見問題" \r\n\t\t\thref="/internet/footer/faq"
+                     \r\n>常見問題</a>\r\n\t<span>&nbsp;&sdot;&nbsp;</span>\r\n
+            </li>
+            \r\n\t\t\t
+            <li>\t<a clas
+                     s="alink-decoration" \r\n\t\t\ttitle="按此瀏覽聯絡我們" \r\n\t\t\thref="/internet/footer/contactUs" \r\n>聯絡我們</a>\r\n\t<span>&nbsp;&sdot;&nbsp;</span>\r\n
+            </li>
+            \r\n\t\t\t
+            <li>\t<a class="alink-decoration" \r\n\t\t\ttitle="按此瀏覽網站地圖 Site Map" \r\n\t\t\thref="/internet/footer/s
+iteMap" \r\n>網站地圖</a>\r\n\t\r\n
+            </li>
+            \r\n\t\t
+        </ul>
+        \r\n\t
+    </div>
+    \r\n\t
+    <div id="footer-second-part">\r\n\t\t
+        <div>\r\n\t\t\t<span id="footer-copyright">城市售票網系統由購票通提供<br/>&copy; 購票通﹝香港﹞有限公司 1998 - 2019. 版權所有. </span>\r\n\t\t
+        </div>
+        \r\n\t\t
+        <div id="footer-s
+econd-part-img">\r\n\t<a title="按此瀏覽無障礙網頁守則(opens new window 在新視窗開啟 在新视窗开启)"
+                         \r\n\t\thref="http://www.w3.org/WAI/WCAG2AA-Conformance" \r\n\t\ttarget="_blank" \r\n\t\t>\r\n\t\t<img
+                width="70" \r\n\t\t\t\theight="31" \r\n\t\t\t\talt="按此瀏覽無障礙網頁守則" \r\n\t
+                \t\t\tsrc="/internet/images/footer/wcag.png"/>\r\n\t</a>\r\n\t<a
+                title="按此瀏覽電子雜誌(opens new window 在新視窗開啟 在新视窗开启)" \r\n\t\thref="http://www.lcsd.gov.hk/tc/emagazine/"
+                \r\n\t\ttarget="_blank" \r\n\t\t>\r\n\t\t<img width="70" \r\n\t\t\t\theight="31" \r\n\t\t\t\talt=
+                "按此瀏覽電子雜誌" \r\n\t\t\t\tsrc="/internet/images/footer/emag_logo.png"/>\r\n\t</a>\r\n\t<a
+                title="按此瀏覽香港政府一站通(opens new window 在新視窗開啟 在新视窗开启)"
+                \r\n\t\thref="http://www.gov.hk/tc/residents/culture/recreation/" \r\n\t\ttarget="_blank" \r\n\t\t>\r\n\t\t<img
+                w
+                idth="70" \r\n\t\t\t\theight="31" \r\n\t\t\t\talt="按此瀏覽香港政府一站通"
+                \r\n\t\t\t\tsrc="/internet/images/footer/gov_hk.png"/>\r\n\t</a>\r\n\t\t
+        </div>
+        \r\n\t
+    </div>
+    \r\n
+</div>
+\t
+<div class="page-layer hidden">\r\n\t\t
+    <div class="layer-content-blk">\r\n\t\t\t
+        <div class="loading hidd
+en">\r\n\t\t\t\t<img class="ajax-loading" \r\n alt="加載中" \r\n title="加載中" \r\n
+                     src="/internet/images/ajax-loader.gif"/><br>\r\n\t\t\t\t<span class="layer-desc">請稍候...</span>\r\n\t\t\t
+        </div>
+        \r\n\t\t\t
+        <div class="
+seatplan-draggable hidden">\r\n\t\t\t\t<img class="ajax-loading" \r\n\t\t\t\t alt="加載中" \r\n\t\t\t\t title="加載中"
+                                            \r\n\t\t\t\t src="/internet/images/seatplan/drag.png"/><br>\r\n\t\t\t\t<span
+                class="layer-desc">提示: 如座位表過大，可用滑鼠於空白位置拖曳以瀏覽其他位
+置。</span>\r\n\t\t\t
+        </div>
+        \r\n\t\t\t
+        <div class="seatplan-alternative-seat hidden">\r\n\t\t\t\t
+            <div class="result-content">\r\n\t\t\t\t\t
+                <table id="alternative-seat-result-tbl"></table>
+                \r\n\t\t\t\t\t
+                <div id="alternative-pick-btn-blk">\r\n\t\t\t\t\t\t
+                    <div class="pick-alternative-s
+eat-result-btn cursor-pointer hidden">\r\n\t
+                        <div class="btn-outer-blk cursor-pointer">\r\n\t\t
+                            <div class="btn-inner-blk">\r\n\t\t\t<span tabindex="0">\r\n選擇\t\t\t</span>\r\n\t\t</div>
+                            \r\n\t
+                        </div>
+                        \r\n\t\t\t\t\t\t
+                    </div>
+                    \r\n\t\t\t\t\t
+                </div>
+                \r\n\t\t\t\t\t
+                <div class="cancel-alternat
+ive-seat-result-btn cursor-pointer">\r\n\t
+                    <div class="btn-outer-blk cursor-pointer">\r\n\t\t
+                        <div class="btn-inner-blk">\r\n\t\t\t<span tabindex="0">\r\n取消\t\t\t</span>\r\n\t\t</div>
+                        \r\n\t
+                    </div>
+                    \r\n\t\t\t\t\t
+                </div>
+                \r\n\t\t\t\t\t<p>&nbsp;</p>\r\n\t\t\t\t
+            </div>
+            \r\n\t\t\t
+        </div>
+        \r\n
+        \t\t
+    </div>
+    \r\n\t
+</div>
+\r\n\t
+<div class="seat-preview-layer hidden">\r\n\t\t
+    <div class="layer-content-blk seat-preview-content-blk">\r\n\t\t\t
+        <div id="seat-preview-header">\r\n\t\t\t\t
+            <div id="close-preview" style="float:right">X</div>
+            \r\n\t\t\t\t座位預覽 ( 點擊外框任何位置以關閉
+            座位預覽視窗 )<br/>\r\n\t
+            <table id="preview-legend-tbl">\r\n\t\t
+                <tr>\r\n\t\t\t
+                    <td class="preview-legend-img" id="basket-seat">\r\n\t\t\t\t
+                        <div>\r\n\t\t\t\t\t<img src="/internet/images/seatplan/seat/basket.png" \r\n\t\t\t\t \t\t
+                                                title="座位﹝購物籃﹞" \r\n\t\t\t\t\t alt="座位﹝
+購物籃﹞"/>\r\n\t\t\t\t
+                        </div>
+                        \r\n\t\t\t
+                    <td>\r\n\t\t\t
+                    <td class="preview-legend-desc">座位﹝購物籃﹞</td>
+                    \r\n\t\t\t
+                    <td class="preview-legend-img" id="view-seat">\r\n\t\t\t\t
+                        <div>\r\n\t\t\t\t\t<img src="/internet/images/seatplan/seat/hold.png" \r\n\t\t\t\t\t\t
+                                                title="座位﹝已選﹞" \
+                                                r\n\t\t\t\t\t\t alt="座位﹝已選﹞"/>\r\n\t\t\t\t
+                        </div>
+                        \r\n\t\t\t
+                    </td>
+                    \r\n\t\t\t
+                    <td class="legend-desc-col">座位﹝已選﹞</td>
+                    \r\n\t\t\t
+                    <td class="preview-dragable preview-legend-img">\r\n\t\t\t\t
+                        <div id="seatplan-message-blk">\r\n\t\t\t\t\t<img class="seatplan-dragable" \r\n\t\t\t
+                                                                          \t \t alt="加載中" \r\n\t\t\t\t \t title="加載中"
+                                                                          \r\n\t\t\t\t \t
+                                                                          src="/internet/images/seatplan/drag.png"/>\r\n提示:
+                            如座位表過大，可用滑鼠於空白位置拖曳以瀏覽其他位置。\t\t\t\t
+                        </div>
+                        \r\n\t\t\t
+                    </td>
+                    \r\n\t\t
+                </tr>
+                \r\n\t
+            </table>
+            \r\n\t\t\t
+        </div>
+        \r\n\t\t\t
+        <div id="seat-cont
+ent-blk">\r\n\t\t\t\t
+            <div id="seatplan-area">\r\n\t
+                <div id="seatplan-canvas"></div>
+                \r\n\t
+                <div id="seatplan-loading" class="text-center hidden">\r\n\t\t<img class="ajax-loading"
+                                                                                   src="/internet/images/ajax-loader.gif"
+                                                                                   title="請稍候..." alt="請稍候..."/><br>\r\n\t\t<span
+                        class="load
+ing-txt">請稍候...</span>\r\n\t
+                </div>
+                \r\n\t
+                <div id="seatplan-error" class="hidden text-center font-bold">\r\n\t\t<span
+                        class="seatplan-error error">抱歉，系統暫未能回應你的要求，請稍候再試。</span>\r\n\t
+                </div>
+                \r\n\t\t\t\t
+            </div>
+            \r\n\t
+            <div id="template-img-blk">\r\n\t\t
+                <map name="s
+eat-template" title="座位區預覽圖"></map>
+                \r\n\t
+            </div>
+            \r\n\t\t\t
+        </div>
+        \r\n\t\t\t
+        <div id="seat-preview-basket-seats">\r\n\t\t\t\t
+            <div id="basket-seat-title">已選座位</div>
+            \r\n\t
+            <table id="basket-seats-preview-tbl">\r\n\t\t
+                <tr class="header">\r\n\t\t\t
+                    <td class="seats-section-col">
+                        段:
+                    </td>
+                    \r\n\t\t\t
+                    <td class="seats-row-col">行:</td>
+                    \r\n\t\t\t
+                    <td class="seats-col-col">位:</td>
+                    \r\n\t\t\t
+                    <td class="seat-ticket-type-col">門票類別:</td>
+                    \r\n\t\t\t
+                    <td class="seat-ticket-price-col">票價:</td>
+                    \t\t\r\n\t\t\t
+                    <td class="seat-preview-col">&nbsp;</td>
+                    \r\n\t\t
+                </tr>
+                \r\n\t
+            </table>
+            \r\n\t\r\n\t\t\t
+        </div>
+        \r\n\t\t
+    </div>
+    \r\n\t
+</div>
+\r\n\t\t
+</body>
+\r\n\t
+</html>\r\n
